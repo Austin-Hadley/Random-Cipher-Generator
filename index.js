@@ -25,18 +25,19 @@ const limiter = rateLimit({
 app.use(limiter);
 
 function responseHeaders() {
-    return res.setHeader("Content-Security-Policy", "script-src 'self'");
+    return res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
 }
 app.get('/', (req, res) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
+    res.setHeader("Cross-Origin-Embedder-Policy", "coss-origin")
     res.sendFile(__dirname + '/site/index.html');
 });
 app.get('/main.js', (req, res) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     res.sendFile(__dirname + '/site/main.js');
 });
 app.get('/new-cipher', (req, res) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     //randomly choose a cipher
     var cipher = Math.floor(Math.random() * 2);
     //if cipher is 0, run atbash
