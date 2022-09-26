@@ -15,17 +15,28 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.disable('x-powered-by');
+app.enable('Content-Security-Policy');
 // implement a rate limiter
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 50 // limit each IP to 50 requests per windowMs
 });
+app.use(limiter);
 
+function responseHeaders() {
+    return res.setHeader("Content-Security-Policy", "script-src 'self'");
+}
 app.get('/', (req, res) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
     res.sendFile(__dirname + '/site/index.html');
 });
+app.get('/main.js', (req, res) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.sendFile(__dirname + '/site/main.js');
+});
 app.get('/new-cipher', (req, res) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
     //randomly choose a cipher
     var cipher = Math.floor(Math.random() * 2);
     //if cipher is 0, run atbash
@@ -78,6 +89,7 @@ app.get('/new-cipher', (req, res) => {
 });
 
 app.post('/check-answer', (req, res) => {
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
     //grab the answer from the client
     var answer = req.body.answer;
     //grab the string and cipher from data/cipher.json

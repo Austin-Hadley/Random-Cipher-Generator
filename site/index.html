@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <title>Random Cipher Generator</title>
-        <link rel="javascript" href="main.js">
+        <!-- Link the javascript -->
+        <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline';>
     </head>
     <body>
         <h1>Random Cipher Generator</h1>
@@ -11,8 +12,16 @@
         <div>
             <!-- Create an area for the encodedString to be placed -->
             <p id="encodedString">Encoded String: </p>
+            <!-- Create a button to be used to request a new cipher -->
+            <button id="newCipher">New Cipher</button>
         </div>
-        <!-- Create a button to be used to request a new cipher -->
-        <button id="newCipher">New Cipher</button>
+        <br>
+        <br>
+        <!-- Create a div with an input and a button to check the answer -->
+        <div>
+            <input id="answer" type="text" placeholder="Enter your answer here">
+            <button id="checkAnswer">Check Answer</button>
+        </div>
     </body>
+    <script src="main.js"></script>
 </html>

@@ -1,13 +1,10 @@
-//send a get request to the server on the client side with XMLHttpRequest
-document.getElementById('newCipher').addEventListener('click', function () {
-    console.log('HERE@@@@')
-    getNewCipher();
-});
+document.getElementById('newCipher').addEventListener('click', getNewCipher());
 
+//send a get request to the server on the client side with XMLHttpRequest
 function getNewCipher() {
     // send a get request to the server on the client side
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'localhost/new-cipher', true);
+    xhr.open('GET', '/new-cipher', true);
     xhr.onload = function () {
         // if the request is successful, set the innerHTML of the encodedString element to the response
         if (this.status == 200) {
