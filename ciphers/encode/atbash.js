@@ -51,3 +51,6 @@ function atBash() {
         console.log(err);
     }
 };
+
+// export the atbash function to ../../index.js
+module.exports = atBash;
