@@ -8,13 +8,10 @@
     </head>
     <body>
         <h1>Random Cipher Generator</h1>
-        <!-- Create a div container to be used for the cipher returned from the server -->
-        <div>
-            <!-- Create an area for the encodedString to be placed -->
-            <p id="encodedString">Encoded String: </p>
-            <!-- Create a button to be used to request a new cipher -->
-            <button id="newCipher">New Cipher</button>
-        </div>
+        <!-- Create a div container that is editable by DOM to be used for the cipher returned from the server -->
+        <div id="cipher"></div>
+        <!-- Create a button that will call the function to generate a cipher -->
+        <button id="GenerateCipher">Generate Cipher</button>
         <br>
         <br>
         <!-- Create a div with an input and a button to check the answer -->
@@ -23,5 +20,7 @@
             <button id="checkAnswer">Check Answer</button>
         </div>
     </body>
+    <!-- Link the main.js file in here -->
     <script src="main.js"></script>
+    <script type="module" src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </html>

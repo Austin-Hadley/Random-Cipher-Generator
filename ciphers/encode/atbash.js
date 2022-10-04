@@ -1,56 +1,31 @@
 // create an atbash cipher with a custom shift value and save it to ../../data/atbashShift.json
 
-function atBash() {
-    //generate a random shift value
-    function randShift() {
-        return Math.floor(Math.random() * 25) + 1;
+// generate an encoded string with atbash cipher with a provided string
+function atBashCipher(string) {
+    //create a variable to store the new cipher
+    var newCipher = '';
+    // map the alphanumeric to the reverse alphanumeric
+    alphanumeric = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    reverseAlphanumeric = 'zyxwvutsrqponmlkjihgfedcba9876543210';
+    // create the dictionary to map the characters
+    var dictionary = {};
+    // loop through the alphanumeric
+    for (var i = 0; i < alphanumeric.length; i++) {
+        // add the character to the dictionary
+        dictionary[alphanumeric[i]] = reverseAlphanumeric[i];
     }
-
-    //generate a random string of length 15
-    function randString(len) {
-        var text = "";
-        var charset = "abcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < len; i++)
-            text += charset.charAt(Math.floor(Math.random() * charset.length));
-        return text;
-    }
-
-    //create the random shift value and string
-    var shift = randShift();
-    var string = randString(15);
-
-    //atbash the string with the shift value and save it to encodedText
-    var encodedText = "";
+    // loop through the string
     for (var i = 0; i < string.length; i++) {
-        var char = string.charCodeAt(i);
-        if (char >= 97 && char <= 122) {
-            char += shift;
-            if (char > 122) {
-                char -= 26;
-            }
-        }
-        encodedText += String.fromCharCode(char);
+        // get the character code of the current character
+        var charCode = string.charCodeAt(i);
+        // grab the character from the dictionary
+        var char = dictionary[string[i]];
+        // add the new character to the new cipher
+        newCipher += char;
     }
+    // return the new cipher
+    return newCipher;
+}
 
-    //save the encoded string, shift value, and string to ../../data/atbashShift.json
-    var shiftObject = {
-        "shift": shift,
-        "string": string,
-        "encodedString": encodedText
-    };
-
-    // run a try statement to see if ../../atbashShift.json exists and if it does, delete it
-    try {
-        fs.unlinkSync('../../data/atbashShift.json');
-    } catch (err) {
-        console.log(err);
-    }
-    try {
-        fs.writeFileSync('../../data/atbashShift.json', JSON.stringify(shiftObject));
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-// export the atbash function to ../../index.js
-module.exports = atBash;
+// export the function
+module.exports(atBashCipher());

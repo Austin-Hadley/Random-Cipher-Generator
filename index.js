@@ -46,7 +46,7 @@ app.get('/new-cipher', (req, res) => {
         //grab the encoded string from data/atbash.json
         var encodedString = require('./data/atbash.json').encodedString;
         //send the encoded string to the client
-        res.send(encodedString);
+        res.send(json.stringify(encodedString));
         // save the cipher to data/cipher.json
         var cipherObject = {
             "cipher": "atbash",
@@ -69,7 +69,7 @@ app.get('/new-cipher', (req, res) => {
         //grab the encoded string from data/ceaserShift.json
         var encodedString = require('./data/ceaserShift.json').encodedString;
         //send the encoded string to the client
-        res.send(encodedString);
+        res.send(json.stringify(encodedString));
         //save the cipher to data/cipher.json
         var cipherObject = {
             "cipher": "ceaser",
@@ -90,7 +90,7 @@ app.get('/new-cipher', (req, res) => {
 });
 
 app.post('/check-answer', (req, res) => {
-    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     //grab the answer from the client
     var answer = req.body.answer;
     //grab the string and cipher from data/cipher.json

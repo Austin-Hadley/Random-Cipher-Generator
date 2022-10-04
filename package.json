@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "dev": "parcel site/index.html",
+    "build": "parcel build site/index.html"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,8 @@
     "express": "^4.18.1",
     "express-rate-limit": "^6.6.0",
     "helmet": "^6.0.0",
+    "nodemon": "^2.0.20",
+    "parcel": "^2.7.0",
     "path": "^0.12.7"
   }
 }

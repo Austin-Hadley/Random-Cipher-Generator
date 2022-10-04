@@ -1,48 +1,58 @@
-import 'regenerator-runtime/runtime';
-import axios from 'axios';
-
-document.getElementById('newCipher').addEventListener('click', getNewCipher());
-document.getElementById('checkAnswer').addEventListener('click', checkAnswer());
-
-
-function getNewCipher() {
-    // get a new cipher from the server
-    axios.get('/new-cipher')
-        .then(function (response) {
-            // change the cipher to the new cipher
-            changeCipher(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-function checkAnswer() {
-    // get the answer from the user
+//create a DOM listener to listen for the Generate button to be clicked
+document.getElementById('GenerateCipher').addEventListener('click', function() {
+    // submit a POST request to the server to generate a new cipher
+    fetch('/new-cipher', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function(response) {
+        // if the response is good, grab the encoded string from the server
+        if (response.ok) {
+            response.json().then(function(data) {
+                //grab the encoded string from the server
+                var encodedString = data.encodedString;
+                //display the encoded string on the page
+                document.getElementById('cipher').innerHTML = domprify.sanitize(encodedString);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        } else {
+            alert('Error: ' + response.statusText);
+        }
+    }).catch(function(error) {
+        alert('Unable to connect to the server');
+    }).catch(function(error) {
+        alert('Unable to connect to the server');
+    });
+});
+//create a DOM listener to listen for the Check Answer button to be clicked
+document.getElementById('checkAnswer').addEventListener('click', function() {
+    // grab the answer from the client
     var answer = document.getElementById('answer').value;
-    // send the answer to the server
-    post(answer);
-}
-
-function post(data) {
-    axios.post('http://localhost/check-answer', {
-        answer: data
-    })
-        .then(function (response) {
-            //if the answer is correct, change the cipher
-            if (response.data == true) {
-                getNewCipher();
-            } else {
-                //if the answer is incorrect, alert the user
-                alert('Incorrect answer');
-            }
+    // submit a POST request to the server to check the answer
+    fetch('/check-answer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            answer: answer
         })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-function changeCipher(newCipher) {
-    // deepcode ignore DOMXSS: Unnecessary
-    document.getElementById('encodedString').innerHTML = newCipher;
-};
+    }).then(function(response) {
+        // return the response as json
+        return response.json();
+    }).then(function(data) {
+        // if the answer is correct, display the correct message
+        if (data == true) {
+            // send an alert to the client
+            alert('Correct!');
+        } else {
+            // if the answer is incorrect, display the incorrect message
+            alert('Incorrect!');
+        }
+    }).catch(function(err) {
+        // log any errors
+        console.log(err);
+    });
+});
