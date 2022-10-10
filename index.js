@@ -36,13 +36,13 @@ app.get('/main.js', (req, res) => {
     res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     res.sendFile(__dirname + '/site/main.js');
 });
-app.get('/new-cipher', (req, res) => {
+app.post('/new-cipher', (req, res) => {
     res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     //randomly choose a cipher
     var cipher = Math.floor(Math.random() * 2);
     //if cipher is 0, run atbash
     if (cipher == 0) {
-        atbash();
+        atbash.atbashCipher();
         //grab the encoded string from data/atbash.json
         var encodedString = require('./data/atbash.json').encodedString;
         //send the encoded string to the client
@@ -64,8 +64,8 @@ app.get('/new-cipher', (req, res) => {
             console.log(err);
         }
     } else {
-        //if cipher is 1, run ceaser
-        ceaser();
+        //if cipher is 1, run ceaserCiper from ceaser.js
+        ceaser.ceaserCipher();
         //grab the encoded string from data/ceaserShift.json
         var encodedString = require('./data/ceaserShift.json').encodedString;
         //send the encoded string to the client

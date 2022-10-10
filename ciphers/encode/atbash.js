@@ -9,13 +9,19 @@ function atBashCipher(string) {
     reverseAlphanumeric = 'zyxwvutsrqponmlkjihgfedcba9876543210';
     // create the dictionary to map the characters
     var dictionary = {};
+    function alphaLength() {
+        return alphanumeric.length();
+    }
     // loop through the alphanumeric
-    for (var i = 0; i < alphanumeric.length; i++) {
+    for (var i = 0; i < alphaLength; i++) {
         // add the character to the dictionary
         dictionary[alphanumeric[i]] = reverseAlphanumeric[i];
     }
     // loop through the string
-    for (var i = 0; i < string.length; i++) {
+    function stringLength() {
+        return string.length();
+    }
+    for (var i = 0; i < stringLength; i++) {
         // get the character code of the current character
         var charCode = string.charCodeAt(i);
         // grab the character from the dictionary
@@ -28,4 +34,4 @@ function atBashCipher(string) {
 }
 
 // export the function
-module.exports(atBashCipher());
+module.exports = atBashCipher();

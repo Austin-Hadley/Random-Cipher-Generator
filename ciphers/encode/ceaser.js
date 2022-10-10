@@ -7,13 +7,16 @@ function randShift() {
 }
 
 // generate an encoded string with ceaser cipher based on a random shift value and a provided string
-function ceaserCipher(string) {
+function ceaserCipher(random) {
     // create a variable to store the new cipher
     var newCipher = '';
     // create a variable to store the shift value
     var shift = randShift();
+    function stringLength() {
+        return random.length();
+    }
     // take each character in the string and shift it by the shift value
-    for (var i = 0; i < string.length; i++) {
+    for (var i = 0; i < stringLength; i++) {
         // if the character is a space, add a space to the new cipher
         if (string[i] == ' ') {
             newCipher += ' ';
