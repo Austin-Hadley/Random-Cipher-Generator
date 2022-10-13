@@ -2,16 +2,16 @@
 
 //generate a random shift value and random string and save it to ../../data/ceaserShift.json
 //generate a random shift value
-function randShift() {
+async function randShift() {
     return Math.floor(Math.random() * 25) + 1;
 }
 
 // generate an encoded string with ceaser cipher based on a random shift value and a provided string
-function ceaserCipher(random) {
+async function ceaserCipher(random) {
     // create a variable to store the new cipher
     var newCipher = '';
     // create a variable to store the shift value
-    var shift = randShift();
+    var shift = await randShift();
     function stringLength() {
         return random.length();
     }
@@ -32,9 +32,20 @@ function ceaserCipher(random) {
             }
         }
     }
+    //save the original string, the shift value, and the new cipher to ../../data/ceaserShift.json
+    var fs = require('fs');
+    var data = {
+        original: random,
+        shift: shift,
+        cipher: newCipher
+    }
+    fs.writeFile('../../data/ceaserShift.json', JSON.stringify(data), function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
     // return the new cipher
     return newCipher;
 }
 
 // export the function
-module.exports = ceaserCipher();
+module.exports = { ceaserCipher }
