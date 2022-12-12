@@ -14,8 +14,9 @@ function atBashCipher(string) {
         // add the character to the dictionary
         dictionary[alphanumeric[i]] = reverseAlphanumeric[i];
     }
+    var i = 0
     // loop through the string
-    for (var i = 0; i < string.length; i++) {
+    for (i < string.length(); i++) {
         // get the character code of the current character
         var charCode = string.charCodeAt(i);
         // grab the character from the dictionary

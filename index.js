@@ -1,12 +1,12 @@
 const express = require('express');
 // deepcode ignore UseCsurfForExpress: CSRF is not a concern for this application
 const app = express();
-const port = 80;
+const port = 8000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const atbash = require('./ciphers/encode/atbash');
-const ceaser = require('./ciphers/encode/ceaser');
+const atbash = require('./ciphers/encode/atbash').atbashCipher();
+const ceaser = require('./ciphers/encode/ceaser').ceaserCipher();
 const fs = require('fs');
 
 
