@@ -28,8 +28,7 @@ jobs:
 
       # Setup virtual env, install dependencies
       - name: Create new virtual env and activate it
-        run: |
-          npm install
+        run: npm install
 	  
   deploy:
     runs-on: self-hosted
@@ -42,5 +41,4 @@ jobs:
 
       # Run gunicorn server
       - name: Run node
-        run: |
-          node index.js
+        run: node index.js
