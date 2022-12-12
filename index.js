@@ -5,9 +5,9 @@ const port = 8000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const atbash = require('./ciphers/encode/atbash').atbashCipher();
-const ceaser = require('./ciphers/encode/ceaser').ceaserCipher();
 const fs = require('fs');
+const atBash = require('./ciphers/encode/atbash.js').atBashCipher;
+const ceaser = require('./ciphers/encode/ceaser.js').ceaserCipher;
 
 
 app.use(cors());
@@ -36,13 +36,13 @@ app.get('/main.js', (req, res) => {
     res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     res.sendFile(__dirname + '/site/main.js');
 });
-app.get('/new-cipher', (req, res) => {
+app.get('/new-cipher', async (req, res) => {
     res.setHeader("Content-Security-Policy", "script-src 'self' https://unpkg.com/axios/dist/axios.min.js");
     //randomly choose a cipher
     var cipher = Math.floor(Math.random() * 2);
     //if cipher is 0, run atbash
     if (cipher == 0) {
-        atbash();
+        await atBash();
         //grab the encoded string from data/atbash.json
         var encodedString = require('./data/atbash.json').encodedString;
         //send the encoded string to the client
@@ -64,8 +64,8 @@ app.get('/new-cipher', (req, res) => {
             console.log(err);
         }
     } else {
-        //if cipher is 1, run ceaser
-        ceaser();
+        //if cipher is 1, run ceaserCiper with the const ceaser
+        await ceaser();
         //grab the encoded string from data/ceaserShift.json
         var encodedString = require('./data/ceaserShift.json').encodedString;
         //send the encoded string to the client
