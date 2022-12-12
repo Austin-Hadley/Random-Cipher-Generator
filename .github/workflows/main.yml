@@ -1,0 +1,24 @@
+# setup a workflow to push the code to my pi and run the code
+name: Deploy to Pi
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: |
+          npm install
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: run code on pi
+        run: |
+          npm start
