@@ -13,7 +13,7 @@ document.getElementById('GenerateCipher').addEventListener('click', function() {
                 //grab the encoded string from the server
                 var encodedString = data.encodedString;
                 //display the encoded string on the page
-                document.getElementById('cipher').innerHTML = domprify.sanitize(encodedString);
+                document.getElementById('cipher').innerHTML = encodedString
             }).catch(function(err) {
                 console.log(err);
             });
@@ -21,9 +21,9 @@ document.getElementById('GenerateCipher').addEventListener('click', function() {
             alert('Error: ' + response.statusText);
         }
     }).catch(function(error) {
-        alert('Unable to connect to the server');
+        alert('Unable to connect to the server:1 ' + error);
     }).catch(function(error) {
-        alert('Unable to connect to the server');
+        alert('Unable to connect to the server:2 ' + error);
     });
 });
 //create a DOM listener to listen for the Check Answer button to be clicked

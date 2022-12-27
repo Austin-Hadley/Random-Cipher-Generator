@@ -85,7 +85,7 @@ function checkInput(input, encoded) {
     } else {
         return true;
     }
-
+}
 //run the cipher and check the input
 function run() {
     // run the cipher
