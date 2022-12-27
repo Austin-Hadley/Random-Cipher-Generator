@@ -17,6 +17,7 @@ async function encode(string) {
         // add the character to the dictionary
         dictionary[alphanumeric[i]] = reverseAlphanumeric[i];
     }
+    var i = 0
     // loop through the string
     function stringLength() {
         return string.length();
